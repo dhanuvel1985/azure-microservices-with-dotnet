@@ -15,7 +15,7 @@ namespace Breed_Management_Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var allPets = mangementDb.Breeds.ToListAsync();
+            var allPets = await mangementDb.Breeds.ToListAsync();
             return allPets != null ? Ok(allPets) : NotFound();
         }
 
@@ -24,7 +24,7 @@ namespace Breed_Management_Api.Controllers
         {
             if (Id <= 0)
                 return BadRequest();
-            var pet = mangementDb.Breeds.FindAsync(Id);
+            var pet = await mangementDb.Breeds.FindAsync(Id);
             return pet != null? Ok(pet) : NotFound();
         }
 

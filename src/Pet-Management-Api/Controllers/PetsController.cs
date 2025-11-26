@@ -15,7 +15,7 @@ namespace Pet_Management_Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var allPets = mangementDb.Pets.Include(P => P.Breed).ToListAsync();
+            var allPets = await mangementDb.Pets.Include(P => P.Breed).ToListAsync();
             return allPets != null ? Ok(allPets) : NotFound();
         }
 
@@ -24,7 +24,7 @@ namespace Pet_Management_Api.Controllers
         {
             if (Id <= 0)
                 return BadRequest();
-            var pet = mangementDb.Pets.Include(P => P.Breed).FirstOrDefaultAsync(_ => _.Id == Id);
+            var pet = await mangementDb.Pets.Include(P => P.Breed).Where(_=>_.Id == Id).FirstOrDefaultAsync();
             return pet != null? Ok(pet) : NotFound();
         }
 
